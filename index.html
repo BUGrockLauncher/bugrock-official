@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BUGrock Launcher — Official Minecraft Bedrock Launcher</title>
+  <meta name="description" content="The official website for BUGrock Launcher. Side-by-side GDK & UWP Bedrock versions, automated decryption, integrated addon manager, and world preservation." />
+  <link rel="icon" type="image/x-icon" href="./assets/app_icon.ico" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    @font-face {
+      font-family: 'MinecraftTen';
+      src: url('./fonts/MinecraftTen.ttf') format('truetype');
+      font-weight: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'Minecraft';
+      src: url('./fonts/Minecraft.ttf') format('truetype');
+      font-weight: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'MinecraftFiveBold';
+      src: url('./fonts/MinecraftFiveBold.ttf') format('truetype');
+      font-weight: bold;
+      font-display: swap;
+    }
+
+    :root {
+      /* Black & Purple Monolith Palette (Zero Gradient Slop) */
+      --bg-black: #000000;
+      --bg-surface: #0B0A10;
+      --bg-card: #12101A;
+      --bg-card-hover: #191624;
+      
+      --purple-primary: #FF00E5;
+      --purple-electric: #B026FF;
+      --purple-deep: #7928CA;
+      --purple-border: #3D1C52;
+      --purple-border-bright: #8B2FC9;
+      --purple-badge-bg: #21092B;
+      
+      --accent-lime: #86FF00;
+      --text-white: #FFFFFF;
+      --text-muted: #A3A1B5;
+      --text-dim: #6E6B82;
+      --border-dark: #1E1B29;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-black);
+      color: var(--text-white);
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Top Bar */
+    .top-bar {
+      background: #000000;
+      border-bottom: 2px solid var(--purple-border);
+      height: 54px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .top-bar-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 24px;
+    }
+    .brand-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: #fff;
+    }
+    .brand-block-icon {
+      width: 30px;
+      height: 30px;
+      image-rendering: pixelated;
+    }
+    .brand-name {
+      font-family: 'MinecraftTen', sans-serif;
+      font-size: 1.25rem;
+      letter-spacing: 0.5px;
+    }
+    .brand-name span {
+      color: var(--purple-primary);
+    }
+    .top-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+      align-items: center;
+    }
+    .top-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: color 0.15s;
+    }
+    .top-links a:hover {
+      color: var(--purple-electric);
+    }
+    .btn-top-download {
+      background: var(--purple-primary);
+      color: #000 !important;
+      font-family: 'MinecraftTen', sans-serif;
+      font-size: 0.9rem;
+      padding: 6px 16px;
+      text-decoration: none;
+      border: 1px solid #fff;
+      box-shadow: 2px 2px 0 var(--purple-deep);
+      font-weight: 700;
+      transition: all 0.1s;
+    }
+    .btn-top-download:hover {
+      background: #FF47EC;
+      transform: translateY(-1px);
+    }
+
+    /* Hero Section */
+    .hero-section {
+      background: var(--bg-black);
+      padding: 60px 0 50px 0;
+      text-align: center;
+      position: relative;
+      border-bottom: 2px solid var(--purple-border);
+    }
+
+    /* Huge Centered 3D Voxel Logo */
+    .hero-logo-box {
+      max-width: 740px;
+      width: 90%;
+      margin: 0 auto 28px auto;
+      filter: drop-shadow(0 16px 36px rgba(176, 38, 255, 0.25));
+      animation: floatLogo 4s ease-in-out infinite;
+    }
+    .hero-logo-box img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    @keyframes floatLogo {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* Hero Tagline & Subtitle */
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--purple-badge-bg);
+      border: 1px solid var(--purple-primary);
+      padding: 6px 16px;
+      font-family: 'Minecraft', monospace;
+      font-size: 0.95rem;
+      color: var(--purple-primary);
+      margin-bottom: 20px;
+    }
+    .hero-badge .dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--purple-primary);
+      display: inline-block;
+    }
+    .hero-tagline {
+      font-size: 1.25rem;
+      color: var(--text-white);
+      max-width: 760px;
+      margin: 0 auto 32px auto;
+      line-height: 1.6;
+    }
+    .hero-tagline strong {
+      color: var(--purple-electric);
+    }
+
+    /* Action Buttons Group */
+    .hero-actions-group {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .btn-action-purple {
+      background: var(--purple-primary);
+      color: #000;
+      font-family: 'MinecraftTen', sans-serif;
+      font-size: 1.3rem;
+      padding: 14px 34px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      border: 2px solid #fff;
+      box-shadow: 4px 4px 0 var(--purple-deep);
+      transition: all 0.15s ease;
+      font-weight: 700;
+    }
+    .btn-action-purple:hover {
+      background: #FF47EC;
+      transform: translateY(-2px);
+      box-shadow: 6px 6px 0 var(--purple-deep);
+    }
+    .btn-action-purple:active {
+      transform: translateY(2px);
+      box-shadow: 2px 2px 0 var(--purple-deep);
+    }
+
+    .btn-action-dark {
+      background: var(--bg-card);
+      color: #fff;
+      font-family: 'MinecraftTen', sans-serif;
+      font-size: 1.2rem;
+      padding: 14px 28px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      border: 2px solid var(--purple-border);
+      box-shadow: 4px 4px 0 #000;
+      transition: all 0.15s ease;
+    }
+    .btn-action-dark:hover {
+      border-color: var(--purple-electric);
+      background: var(--bg-card-hover);
+      transform: translateY(-2px);
+    }
+
+    .hero-specs-row {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      font-family: 'Minecraft', monospace;
+      font-size: 0.95rem;
+      color: var(--text-dim);
+      flex-wrap: wrap;
+    }
+    .hero-specs-row span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .hero-specs-row strong {
+      color: var(--purple-primary);
+    }
+
+    /* Features Section Header */
+    .section-header {
+      text-align: center;
+      padding: 64px 0 40px 0;
+    }
+    .section-eyebrow {
+      font-family: 'Minecraft', monospace;
+      font-size: 0.9rem;
+      color: var(--purple-primary);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-family: 'MinecraftTen', sans-serif;
+      font-size: 2.6rem;
+      color: #fff;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+    .section-title span {
+      color: var(--purple-primary);
+    }
+    .section-desc {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* Feature Cards Grid (Black & Purple) */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 80px;
+    }
+    .feature-card {
+      background: var(--bg-card);
+      border: 2px solid var(--purple-border);
+      box-shadow: 4px 4px 0 #000;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .feature-card:hover {
+      border-color: var(--purple-primary);
+      background: var(--bg-card-hover);
+      transform: translateY(-3px);
+      box-shadow: 6px 6px 0 var(--purple-border);
+    }
+    .card-top-marker {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    .card-code-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      background: var(--purple-badge-bg);
+      color: var(--purple-electric);
+      border: 1px solid var(--purple-border);
+      padding: 3px 8px;
+    }
+    .card-num {
+      font-family: 'MinecraftTen', sans-serif;
+      font-size: 1.6rem;
+      color: var(--purple-border-bright);
+    }
+    .card-title {
+      font-family: 'MinecraftTen', sans-serif;
+      font-size: 1.45rem;
+      color: #fff;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+    .card-title span {
+      color: var(--purple-primary);
+    }
+    .card-body {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .card-bullets {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: #D6D5E0;
+      border-top: 1px solid var(--border-dark);
+      padding-top: 16px;
+    }
+    .card-bullets li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-bullets li::before {
+      content: '■';
+      color: var(--purple-primary);
+      font-size: 0.75rem;
+    }
+
+    /* Interactive Launcher Tabs Showcase */
+    .tabs-showcase-box {
+      background: var(--bg-surface);
+      border: 2px solid var(--purple-border);
+      padding: 40px;
+      margin-bottom: 80px;
+      box-shadow: 6px 6px 0 #000;
+    }
+    .showcase-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .showcase-tabs-nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .showcase-tab-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--purple-border);
+      color: var(--text-muted);
+      font-family: 'Minecraft', monospace;
+      font-size: 0.9rem;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .showcase-tab-btn:hover {
+      border-color: var(--purple-electric);
+      color: #fff;
+    }
+    .showcase-tab-btn.active {
+      background: var(--purple-badge-bg);
+      border-color: var(--purple-primary);
+      color: var(--purple-primary);
+      font-weight: 700;
+    }
+
+    .tab-content-panel {
+      background: #050508;
+      border: 1px solid var(--border-dark);
+      padding: 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      display: none;
+    }
+    .tab-content-panel.active {
+      display: block;
+      animation: fadeIn 0.2s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* System Requirements Box */
+    .reqs-box {
+      background: var(--bg-card);
+      border: 2px solid var(--purple-border);
+      padding: 36px;
+      margin-bottom: 80px;
+    }
+    .reqs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 24px;
+    }
+    .req-item {
+      background: #09080E;
+      border: 1px solid var(--border-dark);
+      padding: 20px;
+    }
+    .req-item-label {
+      font-family: 'Minecraft', monospace;
+      font-size: 0.85rem;
+      color: var(--purple-primary);
+      margin-bottom: 6px;
+    }
+    .req-item-val {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .req-item-desc {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+
+    /* Footer */
+    footer.official-footer {
+      background: #050408;
+      border-top: 2px solid var(--purple-border);
+      padding: 48px 0 32px 0;
+      font-size: 0.95rem;
+      color: var(--text-dim);
+      text-align: center;
+    }
+    .footer-nav {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      list-style: none;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+    .footer-nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .footer-nav a:hover {
+      color: var(--purple-primary);
+    }
+    .footer-disclaimer {
+      font-size: 0.85rem;
+      max-width: 720px;
+      margin: 0 auto 20px auto;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 960px) {
+      .features-grid, .reqs-grid {
+        grid-template-columns: 1fr;
+      }
+      .top-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <header class="top-bar">
+    <div class="top-bar-inner">
+      <a href="#" class="brand-link">
+        <img src="./assets/bugrock_block.png" alt="BUGrock Block" class="brand-block-icon" />
+        <span class="brand-name">BUGrock <span>Launcher</span></span>
+      </a>
+
+      <ul class="top-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#showcase">Manager Tabs</a></li>
+        <li><a href="#requirements">Requirements</a></li>
+        <li><a href="https://github.com/BUGrockLauncher/bugrock-official" target="_blank">GitHub</a></li>
+        <li><a href="https://github.com/BUGrockLauncher/bugrocklauncher.github.io/releases/latest" class="btn-top-download">DOWNLOAD x64</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="hero-section">
+    <div class="container">
+      
+      <!-- Huge Centered 3D Voxel Official Logo -->
+      <div class="hero-logo-box">
+        <img src="./assets/bugrock_official_logo.png" alt="BUGrock Launcher Official Voxel Logo" />
+      </div>
+
+      <!-- Feature Flagship Badge -->
+      <div class="hero-badge">
+        <span class="dot"></span>
+        <span>SIDE-BY-SIDE GDK (.MSIXVC) &amp; UWP (.APPX) BEDROCK ENGINE</span>
+      </div>
+
+      <!-- Tagline -->
+      <p class="hero-tagline">
+        The ultimate custom launcher for <strong>Minecraft: Bedrock Edition</strong> on Windows 10 &amp; 11. Run multiple releases, betas, and preview builds side-by-side with <strong>automated GDK decryption</strong>, deep <strong>addon &amp; shader injection</strong>, and complete <strong>world preservation</strong>.
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="hero-actions-group">
+        <a href="https://github.com/BUGrockLauncher/bugrocklauncher.github.io/releases/latest" class="btn-action-purple">
+          <span>⬇ DOWNLOAD BUGROCK LAUNCHER (x64)</span>
+        </a>
+        <a href="#features" class="btn-action-dark">
+          <span>EXPLORE CODE FEATURES ↓</span>
+        </a>
+      </div>
+
+      <!-- Specs Row -->
+      <div class="hero-specs-row">
+        <span>● Status: <strong>Public Beta Ready</strong></span>
+        <span>● Runtime: <strong>Native .NET 8.0 Desktop</strong></span>
+        <span>● Store Lock: <strong>Zero Dependency</strong></span>
+        <span>● Telemetry: <strong>100% Blocked</strong></span>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Features Cards Section -->
+  <section id="features" class="container">
+    
+    <div class="section-header">
+      <div class="section-eyebrow">// REAL CODE ARCHITECTURE</div>
+      <h2 class="section-title">ENGINEERED FOR <span>POWER PLAYERS</span></h2>
+      <p class="section-desc">Inspected directly from the BUGrock Launcher codebase — all the core capabilities that make it superior to the default Windows Store launcher.</p>
+    </div>
+
+    <div class="features-grid">
+      
+      <!-- CARD 1: Dual Engine Architecture -->
+      <div class="feature-card">
+        <div>
+          <div class="card-top-marker">
+            <span class="card-code-tag">MainWindow.xaml.cs</span>
+            <span class="card-num">01</span>
+          </div>
+          <h3 class="card-title">Side-by-Side <span>Dual Engine</span></h3>
+          <p class="card-body">
+            Full staging, extraction, and manifest patching for modern GDK versions (1.21+) using <code>.msixvc</code> alongside legacy UWP <code>.appx</code> packages.
+          </p>
+        </div>
+        <ul class="card-bullets">
+          <li>Run Release, Beta, Preview, &amp; Imported side-by-side.</li>
+          <li>Never reinstall or overwrite your game from scratch.</li>
+          <li>Live cancellation &amp; automatic package registration.</li>
+        </ul>
+      </div>
+
+      <!-- CARD 2: Automated GDK Decryption -->
+      <div class="feature-card">
+        <div>
+          <div class="card-top-marker">
+            <span class="card-code-tag">GDKDecryptHelper.cpp</span>
+            <span class="card-num">02</span>
+          </div>
+          <h3 class="card-title">Auto <span>GDK Decryption</span></h3>
+          <p class="card-body">
+            Automated background acquisition of prerequisite decryption keys via <code>ClipSvc</code> and Store license helpers, paired with rigorous PE header verification.
+          </p>
+        </div>
+        <ul class="card-bullets">
+          <li>Background key check for encrypted modern packages.</li>
+          <li>Eliminates <code>Minecraft.Windows.exe is encrypted</code> errors.</li>
+          <li>Native C++ decryption shim for maximum performance.</li>
+        </ul>
+      </div>
+
+      <!-- CARD 3: Integrated Addon & Mod Manager -->
+      <div class="feature-card">
+        <div>
+          <div class="card-top-marker">
+            <span class="card-code-tag">AddonManagerService.cs</span>
+            <span class="card-num">03</span>
+          </div>
+          <h3 class="card-title">Integrated <span>Addon Hub</span></h3>
+          <p class="card-body">
+            Full-featured in-launcher manager for Resource Packs, Behavior Packs, Maps (<code>.mcworld</code>), Skin Packs, and RenderDragon Deferred Shaders.
+          </p>
+        </div>
+        <ul class="card-bullets">
+          <li>Deep inspection of internal <code>manifest.json</code>.</li>
+          <li>Detects min engine version, UUIDs, &amp; custom pack icons.</li>
+          <li>One-click injection straight into instance folders.</li>
+        </ul>
+      </div>
+
+      <!-- CARD 4: World Preservation & Conflict Resolution -->
+      <div class="feature-card">
+        <div>
+          <div class="card-top-marker">
+            <span class="card-code-tag">WorldConflictDialog.xaml</span>
+            <span class="card-num">04</span>
+          </div>
+          <h3 class="card-title">Total <span>World Preservation</span></h3>
+          <p class="card-body">
+            Safe-holding engine shields your saves from accidental deletion when switching packages, and detects multi-path locations across UWP (<code>LocalState</code>) and GDK.
+          </p>
+        </div>
+        <ul class="card-bullets">
+          <li>Built-in "Find my Minecraft data" storage scanner.</li>
+          <li>Interactive conflict resolution dialog for world folders.</li>
+          <li>Zero risk of World Corruption across version hops.</li>
+        </ul>
+      </div>
+
+      <!-- CARD 5: Direct Microsoft CDN Downloader -->
+      <div class="feature-card">
+        <div>
+          <div class="card-top-marker">
+            <span class="card-code-tag">VersionDownloader.cs</span>
+            <span class="card-num">05</span>
+          </div>
+          <h3 class="card-title">Direct <span>CDN Downloader</span></h3>
+          <p class="card-body">
+            High-speed direct downloading from Microsoft Windows Update CDN (<code>WUProtocol</code>) with fallback mirrors, plus full local offline package sideloading.
+          </p>
+        </div>
+        <ul class="card-bullets">
+          <li>Direct downloading for official Release &amp; Preview packages.</li>
+          <li>Local offline import for <code>.appx</code> and <code>.msixvc</code> files.</li>
+          <li>Real-time download speed &amp; staging progress bars.</li>
+        </ul>
+      </div>
+
+      <!-- CARD 6: Maintenance & Clean-up Utility -->
+      <div class="feature-card">
+        <div>
+          <div class="card-top-marker">
+            <span class="card-code-tag">DDFWManager.cs</span>
+            <span class="card-num">06</span>
+          </div>
+          <h3 class="card-title">Store <span>Repair &amp; Clean</span></h3>
+          <p class="card-body">
+            Built-in tools to resolve stubborn Store error codes (0x80073CF9), unregister stale AppX packages cleanly, and auto-delete installers to free up disk space.
+          </p>
+        </div>
+        <ul class="card-bullets">
+          <li>"Cleanup for Microsoft Store" one-click fixer.</li>
+          <li>Auto-delete packages after extraction option.</li>
+          <li>Full Portable USB extraction mode supported.</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Interactive Manager Tabs Showcase -->
+  <section id="showcase" class="container">
+    <div class="tabs-showcase-box">
+      
+      <div class="showcase-header">
+        <div>
+          <div class="section-eyebrow">// CODE-DRIVEN INTERACTION</div>
+          <h3 style="font-family: 'MinecraftTen', sans-serif; font-size: 1.8rem;">IN-LAUNCHER TABS ARCHITECTURE</h3>
+        </div>
+
+        <div class="showcase-tabs-nav">
+          <button class="showcase-tab-btn active" data-tab="tab-installations">INSTALLATIONS</button>
+          <button class="showcase-tab-btn" data-tab="tab-addons">ADDONS &amp; MODS</button>
+          <button class="showcase-tab-btn" data-tab="tab-worlds">WORLDS &amp; SAVES</button>
+          <button class="showcase-tab-btn" data-tab="tab-skins">3D SKINS</button>
+        </div>
+      </div>
+
+      <div id="tab-installations" class="tab-content-panel active">
+        <span style="color: var(--purple-primary);">[INSTALLATIONS ENGINE]</span><br />
+        ├── ReleaseTab: Stable Bedrock channel (1.21.40, 1.20.80, 1.16.201, ...)<br />
+        ├── PreviewTab: Testing latest Bedrock features (26.70.22, 1.21.50.20)<br />
+        ├── BetaTab: Historical Xbox Insider beta builds (1.14, 1.12, 1.10)<br />
+        └── ImportedTab: Locally imported custom .msixvc or .appx developer builds<br />
+        <span style="color: var(--accent-lime);">STATUS: Automatic GDK Decryption &amp; UWP Staging Ready</span>
+      </div>
+
+      <div id="tab-addons" class="tab-content-panel">
+        <span style="color: var(--purple-primary);">[DDFW / ADDON MANAGER SERVICE]</span><br />
+        ├── 🎨 Resource Packs: High-res PBR textures, Faithful 32x, UI packs<br />
+        ├── ⚙️ Behavior Packs: Custom entity scripts, gamemodes, item behaviors<br />
+        ├── ⚡ Shaders: RenderDragon Deferred Lighting, sun rays, reflective water<br />
+        └── Deep Inspection: Auto-detects Pack UUID, Version requirement, &amp; icon
+      </div>
+
+      <div id="tab-worlds" class="tab-content-panel">
+        <span style="color: var(--purple-primary);">[WORLD PRESERVATION ENGINE]</span><br />
+        ├── SafeHolding: Backs up %localappdata%/Packages/.../LocalState before switches<br />
+        ├── MultiPath Scanner: Identifies saves in UWP and GDK (Minecraft Bedrock/Users)<br />
+        └── Conflict Resolver: Prevents overwriting or corrupting save data across versions
+      </div>
+
+      <div id="tab-skins" class="tab-content-panel">
+        <span style="color: var(--purple-primary);">[3D SKIN &amp; STEVE HEAD HELPER]</span><br />
+        ├── SteveHeadHelper: Real-time rendering of player skins in the launcher UI<br />
+        ├── Skin Packs: Import custom .mcpack skin bundles without Store marketplace locks<br />
+        └── Offline Profile: Display offline skins without Xbox Live connectivity requirements
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Requirements Box -->
+  <section id="requirements" class="container">
+    <div class="reqs-box">
+      <div class="section-eyebrow">// PREREQUISITES CHECKLIST</div>
+      <h3 style="font-family: 'MinecraftTen', sans-serif; font-size: 1.8rem; margin-bottom: 8px;">QUICK SYSTEM REQUIREMENTS</h3>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">Ensure your Windows 10/11 system meets these basic runtimes before launching:</p>
+
+      <div class="reqs-grid">
+        <div class="req-item">
+          <div class="req-item-label">RUNTIME #01</div>
+          <div class="req-item-val">.NET 8.0 Desktop</div>
+          <div class="req-item-desc">Required to run the modern C# WPF launcher interface.</div>
+        </div>
+
+        <div class="req-item">
+          <div class="req-item-label">RUNTIME #02</div>
+          <div class="req-item-val">Visual C++ 2015-2022</div>
+          <div class="req-item-desc">Required for native C++ shims and decryption helpers.</div>
+        </div>
+
+        <div class="req-item">
+          <div class="req-item-label">SYSTEM SETTING</div>
+          <div class="req-item-val">Developer Mode: ON</div>
+          <div class="req-item-desc">Allows Windows to register and sideload local packages.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="official-footer">
+    <div class="container">
+      <ul class="footer-nav">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#showcase">Launcher Tabs</a></li>
+        <li><a href="#requirements">Requirements</a></li>
+        <li><a href="https://github.com/BUGrockLauncher/bugrock-official" target="_blank">Repository</a></li>
+        <li><a href="https://github.com/7AmoZ/BUGrock-Launcher" target="_blank">Upstream Project</a></li>
+      </ul>
+
+      <p class="footer-disclaimer">
+        BUGrock Launcher is a free and open-source project licensed under the GNU General Public License v3.0 (GPL-3.0).<br />
+        <strong>NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.</strong><br />
+        Minecraft is a trademark of Mojang Synergies AB / Microsoft Corporation.
+      </p>
+
+      <p style="color: var(--text-dim); font-size: 0.85rem;">
+        &copy; 2026 BUGrock Launcher Project. Handcrafted for the Windows Bedrock community.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Interactive Tabs Script -->
+  <script>
+    document.querySelectorAll('.showcase-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.showcase-tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content-panel').forEach(p => p.classList.remove('active'));
+
+        btn.classList.add('active');
+        const tabId = btn.getAttribute('data-tab');
+        document.getElementById(tabId).classList.add('active');
+      });
+    });
+  </script>
+
+</body>
+</html>
