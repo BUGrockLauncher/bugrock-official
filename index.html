@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BUGrock Launcher — Official Minecraft Bedrock Launcher</title>
-  <meta name="description" content="The official website for BUGrock Launcher. Side-by-side GDK & UWP Bedrock versions, automated decryption, integrated addon manager, and world preservation." />
+  <title>BUGrock Launcher — Official Minecraft Bedrock Launcher (v1.1.5)</title>
+  <meta name="description" content="The definitive custom launcher for Minecraft: Bedrock Edition on Windows 10 & 11. Multi-instance isolation, GDK/UWP side-by-side, world auto-backups, and integrated mod hub." />
   <link rel="icon" type="image/x-icon" href="./assets/app_icon.ico" />
 
   <!-- Fonts -->
@@ -33,11 +33,11 @@
     }
 
     :root {
-      /* Black & Purple Monolith Palette (Zero Gradient Slop) */
+      /* Signature Black & BUGrock Purple Monolith Palette */
       --bg-black: #000000;
-      --bg-surface: #0B0A10;
-      --bg-card: #12101A;
-      --bg-card-hover: #191624;
+      --bg-surface: #09080E;
+      --bg-card: #110F18;
+      --bg-card-hover: #191524;
       
       --purple-primary: #FF00E5;
       --purple-electric: #B026FF;
@@ -47,6 +47,7 @@
       --purple-badge-bg: #21092B;
       
       --accent-lime: #86FF00;
+      --accent-blue: #38BDF8;
       --text-white: #FFFFFF;
       --text-muted: #A3A1B5;
       --text-dim: #6E6B82;
@@ -74,7 +75,7 @@
 
     /* Container */
     .container {
-      max-width: 1140px;
+      max-width: 1160px;
       margin: 0 auto;
       padding: 0 24px;
     }
@@ -83,13 +84,13 @@
     .top-bar {
       background: #000000;
       border-bottom: 2px solid var(--purple-border);
-      height: 54px;
+      height: 56px;
       position: sticky;
       top: 0;
       z-index: 100;
     }
     .top-bar-inner {
-      max-width: 1140px;
+      max-width: 1160px;
       margin: 0 auto;
       height: 100%;
       display: flex;
@@ -100,18 +101,18 @@
     .brand-link {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       text-decoration: none;
       color: #fff;
     }
     .brand-block-icon {
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       image-rendering: pixelated;
     }
     .brand-name {
       font-family: 'MinecraftTen', sans-serif;
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       letter-spacing: 0.5px;
     }
     .brand-name span {
@@ -153,7 +154,7 @@
     /* Hero Section */
     .hero-section {
       background: var(--bg-black);
-      padding: 60px 0 50px 0;
+      padding: 56px 0 48px 0;
       text-align: center;
       position: relative;
       border-bottom: 2px solid var(--purple-border);
@@ -161,10 +162,10 @@
 
     /* Huge Centered 3D Voxel Logo */
     .hero-logo-box {
-      max-width: 740px;
+      max-width: 720px;
       width: 90%;
-      margin: 0 auto 28px auto;
-      filter: drop-shadow(0 16px 36px rgba(176, 38, 255, 0.25));
+      margin: 0 auto 24px auto;
+      filter: drop-shadow(0 16px 36px rgba(176, 38, 255, 0.28));
       animation: floatLogo 4s ease-in-out infinite;
     }
     .hero-logo-box img {
@@ -177,7 +178,7 @@
       50% { transform: translateY(-8px); }
     }
 
-    /* Hero Tagline & Subtitle */
+    /* Hero Release Status Badge */
     .hero-badge {
       display: inline-flex;
       align-items: center;
@@ -199,7 +200,7 @@
     .hero-tagline {
       font-size: 1.25rem;
       color: var(--text-white);
-      max-width: 760px;
+      max-width: 800px;
       margin: 0 auto 32px auto;
       line-height: 1.6;
     }
@@ -207,59 +208,70 @@
       color: var(--purple-electric);
     }
 
-    /* Action Buttons Group */
-    .hero-actions-group {
+    /* Two Real Download Options */
+    .hero-downloads-container {
       display: flex;
       justify-content: center;
       gap: 16px;
       flex-wrap: wrap;
-      margin-bottom: 28px;
+      margin-bottom: 32px;
     }
-    .btn-action-purple {
+    .btn-download-standalone {
       background: var(--purple-primary);
       color: #000;
       font-family: 'MinecraftTen', sans-serif;
-      font-size: 1.3rem;
-      padding: 14px 34px;
+      font-size: 1.25rem;
+      padding: 16px 32px;
       text-decoration: none;
       display: inline-flex;
+      flex-direction: column;
       align-items: center;
-      gap: 10px;
+      gap: 4px;
       cursor: pointer;
       border: 2px solid #fff;
       box-shadow: 4px 4px 0 var(--purple-deep);
       transition: all 0.15s ease;
       font-weight: 700;
     }
-    .btn-action-purple:hover {
+    .btn-download-standalone:hover {
       background: #FF47EC;
       transform: translateY(-2px);
       box-shadow: 6px 6px 0 var(--purple-deep);
     }
-    .btn-action-purple:active {
-      transform: translateY(2px);
-      box-shadow: 2px 2px 0 var(--purple-deep);
+    .btn-download-standalone .sub-note {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0;
+      color: #21092B;
     }
 
-    .btn-action-dark {
+    .btn-download-lite {
       background: var(--bg-card);
       color: #fff;
       font-family: 'MinecraftTen', sans-serif;
-      font-size: 1.2rem;
-      padding: 14px 28px;
+      font-size: 1.25rem;
+      padding: 16px 32px;
       text-decoration: none;
       display: inline-flex;
+      flex-direction: column;
       align-items: center;
-      gap: 10px;
+      gap: 4px;
       cursor: pointer;
       border: 2px solid var(--purple-border);
       box-shadow: 4px 4px 0 #000;
       transition: all 0.15s ease;
     }
-    .btn-action-dark:hover {
+    .btn-download-lite:hover {
       border-color: var(--purple-electric);
       background: var(--bg-card-hover);
       transform: translateY(-2px);
+    }
+    .btn-download-lite .sub-note {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-muted);
     }
 
     .hero-specs-row {
@@ -280,7 +292,7 @@
       color: var(--purple-primary);
     }
 
-    /* Features Section Header */
+    /* Section Header */
     .section-header {
       text-align: center;
       padding: 64px 0 40px 0;
@@ -306,11 +318,11 @@
     .section-desc {
       font-size: 1.15rem;
       color: var(--text-muted);
-      max-width: 680px;
+      max-width: 720px;
       margin: 0 auto;
     }
 
-    /* Feature Cards Grid (Black & Purple) */
+    /* Feature Cards Grid */
     .features-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -340,13 +352,14 @@
       align-items: center;
       margin-bottom: 18px;
     }
-    .card-code-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
+    .card-category-badge {
+      font-family: 'Minecraft', monospace;
+      font-size: 0.8rem;
       background: var(--purple-badge-bg);
-      color: var(--purple-electric);
+      color: var(--purple-primary);
       border: 1px solid var(--purple-border);
-      padding: 3px 8px;
+      padding: 4px 10px;
+      letter-spacing: 0.5px;
     }
     .card-num {
       font-family: 'MinecraftTen', sans-serif;
@@ -391,7 +404,7 @@
       font-size: 0.75rem;
     }
 
-    /* Interactive Launcher Tabs Showcase */
+    /* Live Interface Showcase (The Actual Tabs) */
     .tabs-showcase-box {
       background: var(--bg-surface);
       border: 2px solid var(--purple-border);
@@ -416,9 +429,9 @@
       background: var(--bg-card);
       border: 1px solid var(--purple-border);
       color: var(--text-muted);
-      font-family: 'Minecraft', monospace;
-      font-size: 0.9rem;
-      padding: 8px 16px;
+      font-family: 'MinecraftTen', sans-serif;
+      font-size: 0.95rem;
+      padding: 10px 18px;
       cursor: pointer;
       transition: all 0.15s;
     }
@@ -436,9 +449,9 @@
     .tab-content-panel {
       background: #050508;
       border: 1px solid var(--border-dark);
-      padding: 24px;
+      padding: 28px;
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.9rem;
+      font-size: 0.92rem;
       line-height: 1.8;
       display: none;
     }
@@ -451,7 +464,63 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* System Requirements Box */
+    /* Discord Integration Spotlight Card */
+    .discord-spotlight {
+      background: #0B0E17;
+      border: 2px solid #5865F2;
+      padding: 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .discord-badge {
+      font-family: 'Minecraft', monospace;
+      font-size: 0.85rem;
+      color: #5865F2;
+      background: #151930;
+      border: 1px solid #5865F2;
+      padding: 4px 10px;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+    .rpc-preview-box {
+      background: #181B28;
+      border: 1px solid #2F354F;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .rpc-avatar {
+      width: 64px;
+      height: 64px;
+      background: #000;
+      border: 2px solid #5865F2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .rpc-avatar img {
+      width: 48px;
+      height: 48px;
+      image-rendering: pixelated;
+    }
+    .rpc-details {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.88rem;
+    }
+    .rpc-title {
+      font-weight: 700;
+      color: #fff;
+    }
+    .rpc-sub {
+      color: #A3A8BE;
+      font-size: 0.8rem;
+    }
+
+    /* Requirements Box */
     .reqs-box {
       background: var(--bg-card);
       border: 2px solid var(--purple-border);
@@ -519,11 +588,14 @@
     }
 
     @media (max-width: 960px) {
-      .features-grid, .reqs-grid {
+      .features-grid, .reqs-grid, .discord-spotlight {
         grid-template-columns: 1fr;
       }
       .top-links {
         display: none;
+      }
+      .btn-download-standalone, .btn-download-lite {
+        width: 100%;
       }
     }
   </style>
@@ -540,10 +612,11 @@
 
       <ul class="top-links">
         <li><a href="#features">Features</a></li>
-        <li><a href="#showcase">Manager Tabs</a></li>
+        <li><a href="#showcase">Launcher Tabs</a></li>
+        <li><a href="#discord">Discord RPC</a></li>
         <li><a href="#requirements">Requirements</a></li>
-        <li><a href="https://github.com/BUGrockLauncher/bugrock-official" target="_blank">GitHub</a></li>
-        <li><a href="https://github.com/BUGrockLauncher/bugrocklauncher.github.io/releases/latest" class="btn-top-download">DOWNLOAD x64</a></li>
+        <li><a href="https://github.com/BUGrockLauncher/BUGrockLauncher" target="_blank">Source Code</a></li>
+        <li><a href="https://github.com/BUGrockLauncher/BUGrockLauncher/releases/latest" class="btn-top-download">DOWNLOAD v1.1.5</a></li>
       </ul>
     </div>
   </header>
@@ -557,33 +630,38 @@
         <img src="./assets/bugrock_official_logo.png" alt="BUGrock Launcher Official Voxel Logo" />
       </div>
 
-      <!-- Feature Flagship Badge -->
+      <!-- Release Status Badge -->
       <div class="hero-badge">
         <span class="dot"></span>
-        <span>SIDE-BY-SIDE GDK (.MSIXVC) &amp; UWP (.APPX) BEDROCK ENGINE</span>
+        <span>STABLE RELEASE v1.1.5 // WINDOWS 10 &amp; 11 (x64)</span>
       </div>
 
       <!-- Tagline -->
       <p class="hero-tagline">
-        The ultimate custom launcher for <strong>Minecraft: Bedrock Edition</strong> on Windows 10 &amp; 11. Run multiple releases, betas, and preview builds side-by-side with <strong>automated GDK decryption</strong>, deep <strong>addon &amp; shader injection</strong>, and complete <strong>world preservation</strong>.
+        The ultimate modular launcher for <strong>Minecraft: Bedrock Edition</strong>. Run multiple Release, Preview, and Beta versions side-by-side with <strong>data isolation</strong>, <strong>automated world backups</strong>, <strong>integrated mod browsing</strong>, and <strong>Discord Rich Presence</strong>.
       </p>
 
-      <!-- Action Buttons -->
-      <div class="hero-actions-group">
-        <a href="https://github.com/BUGrockLauncher/bugrocklauncher.github.io/releases/latest" class="btn-action-purple">
-          <span>⬇ DOWNLOAD BUGROCK LAUNCHER (x64)</span>
+      <!-- Accurate Real Download Options (Direct GitHub Releases) -->
+      <div class="hero-downloads-container">
+        <!-- Standalone Edition -->
+        <a href="https://github.com/BUGrockLauncher/BUGrockLauncher/releases/latest" class="btn-download-standalone">
+          <span>⬇ DOWNLOAD FULL STANDALONE (~76 MB)</span>
+          <span class="sub-note">Pre-bundled with .NET 8 &amp; VC++ • Zero Prerequisites • Immediate Play</span>
         </a>
-        <a href="#features" class="btn-action-dark">
-          <span>EXPLORE CODE FEATURES ↓</span>
+
+        <!-- Lite Edition -->
+        <a href="https://github.com/BUGrockLauncher/BUGrockLauncher/releases/latest" class="btn-download-lite">
+          <span>⚡ DOWNLOAD LITE EDITION (~10 MB)</span>
+          <span class="sub-note">Uses System Runtimes • Minimal Storage • Fast Download</span>
         </a>
       </div>
 
       <!-- Specs Row -->
       <div class="hero-specs-row">
-        <span>● Status: <strong>Public Beta Ready</strong></span>
-        <span>● Runtime: <strong>Native .NET 8.0 Desktop</strong></span>
-        <span>● Store Lock: <strong>Zero Dependency</strong></span>
-        <span>● Telemetry: <strong>100% Blocked</strong></span>
+        <span>● Multi-Instance: <strong>Isolated com.mojang</strong></span>
+        <span>● Dual-Architecture: <strong>GDK (.msixvc) &amp; UWP (.appx)</strong></span>
+        <span>● World Safety: <strong>Pre-Launch LevelDB Backups</strong></span>
+        <span>● Open Source: <strong>GPL v3 License</strong></span>
       </div>
 
     </div>
@@ -593,178 +671,211 @@
   <section id="features" class="container">
     
     <div class="section-header">
-      <div class="section-eyebrow">// REAL CODE ARCHITECTURE</div>
-      <h2 class="section-title">ENGINEERED FOR <span>POWER PLAYERS</span></h2>
-      <p class="section-desc">Inspected directly from the BUGrock Launcher codebase — all the core capabilities that make it superior to the default Windows Store launcher.</p>
+      <div class="section-eyebrow">// REAL CORE CAPABILITIES</div>
+      <h2 class="section-title">ENGINEERED FOR <span>BEDROCK PLAYERS</span></h2>
+      <p class="section-desc">Authentic features documented in the BUGrock Launcher v1.1.5 engine — designed for seamless version switching, world security, and community mods.</p>
     </div>
 
     <div class="features-grid">
       
-      <!-- CARD 1: Dual Engine Architecture -->
+      <!-- CARD 1: Dual-Architecture Version Manager -->
       <div class="feature-card">
         <div>
           <div class="card-top-marker">
-            <span class="card-code-tag">MainWindow.xaml.cs</span>
+            <span class="card-category-badge">DUAL-ENGINE CORE</span>
             <span class="card-num">01</span>
           </div>
-          <h3 class="card-title">Side-by-Side <span>Dual Engine</span></h3>
+          <h3 class="card-title">Side-by-Side <span>GDK &amp; UWP</span></h3>
           <p class="card-body">
-            Full staging, extraction, and manifest patching for modern GDK versions (1.21+) using <code>.msixvc</code> alongside legacy UWP <code>.appx</code> packages.
+            Install and run official Bedrock Release, Preview, Beta, and Imported versions concurrently. Features automatic decryption key resolution and secure launch shims for modern GDK (<code>.msixvc</code>) versions alongside classic UWP (<code>.appx</code>) builds.
           </p>
         </div>
         <ul class="card-bullets">
-          <li>Run Release, Beta, Preview, &amp; Imported side-by-side.</li>
-          <li>Never reinstall or overwrite your game from scratch.</li>
-          <li>Live cancellation &amp; automatic package registration.</li>
+          <li>Run multiple different versions without reinstalling.</li>
+          <li>Drag-and-drop manual import for local <code>.msixvc</code> / <code>.appx</code>.</li>
+          <li>Automatic AppX registration and manifest handling.</li>
         </ul>
       </div>
 
-      <!-- CARD 2: Automated GDK Decryption -->
+      <!-- CARD 2: Multi-Instance Data Isolation -->
       <div class="feature-card">
         <div>
           <div class="card-top-marker">
-            <span class="card-code-tag">GDKDecryptHelper.cpp</span>
+            <span class="card-category-badge">SAVE PROTECTION</span>
             <span class="card-num">02</span>
           </div>
-          <h3 class="card-title">Auto <span>GDK Decryption</span></h3>
+          <h3 class="card-title">Multi-Instance <span>Data Isolation</span></h3>
           <p class="card-body">
-            Automated background acquisition of prerequisite decryption keys via <code>ClipSvc</code> and Store license helpers, paired with rigorous PE header verification.
+            Create, clone, and manage separate game profiles. Each instance operates inside its own isolated <code>com.mojang</code> environment, permanently eliminating world save corruption when switching between game versions.
           </p>
         </div>
         <ul class="card-bullets">
-          <li>Background key check for encrypted modern packages.</li>
-          <li>Eliminates <code>Minecraft.Windows.exe is encrypted</code> errors.</li>
-          <li>Native C++ decryption shim for maximum performance.</li>
+          <li>Independent worlds, texture packs, and options per version.</li>
+          <li>Safe junction creation with automatic pre-migration backup.</li>
+          <li>Clone entire installations and configurations with one click.</li>
         </ul>
       </div>
 
-      <!-- CARD 3: Integrated Addon & Mod Manager -->
+      <!-- CARD 3: World Auto-Backup System -->
       <div class="feature-card">
         <div>
           <div class="card-top-marker">
-            <span class="card-code-tag">AddonManagerService.cs</span>
+            <span class="card-category-badge">BACKUP ENGINE v1.1.4</span>
             <span class="card-num">03</span>
           </div>
-          <h3 class="card-title">Integrated <span>Addon Hub</span></h3>
+          <h3 class="card-title">Pre-Launch <span>World Auto-Backup</span></h3>
           <p class="card-body">
-            Full-featured in-launcher manager for Resource Packs, Behavior Packs, Maps (<code>.mcworld</code>), Skin Packs, and RenderDragon Deferred Shaders.
+            Optional background safety routine that archives your world folders into timestamped ZIP files organized by version name before launching Minecraft. Uses direct disk streaming to prevent UI freezes on massive worlds.
           </p>
         </div>
         <ul class="card-bullets">
-          <li>Deep inspection of internal <code>manifest.json</code>.</li>
-          <li>Detects min engine version, UUIDs, &amp; custom pack icons.</li>
-          <li>One-click injection straight into instance folders.</li>
+          <li>Automated timestamped ZIP archives before every launch.</li>
+          <li>Direct streaming engine prevents UI freezes on large worlds.</li>
+          <li>"Find My Worlds" one-click button opens active save folders.</li>
         </ul>
       </div>
 
-      <!-- CARD 4: World Preservation & Conflict Resolution -->
+      <!-- CARD 4: Integrated Addons & Mods Hub -->
       <div class="feature-card">
         <div>
           <div class="card-top-marker">
-            <span class="card-code-tag">WorldConflictDialog.xaml</span>
+            <span class="card-category-badge">MOD &amp; ADDON HUB</span>
             <span class="card-num">04</span>
           </div>
-          <h3 class="card-title">Total <span>World Preservation</span></h3>
+          <h3 class="card-title">CurseForge &amp; <span>MCPEDL Browser</span></h3>
           <p class="card-body">
-            Safe-holding engine shields your saves from accidental deletion when switching packages, and detects multi-path locations across UWP (<code>LocalState</code>) and GDK.
+            Integrated in-app WebView2 browser tabs for CurseForge and MCPEDL featuring built-in ad-blocking. Browse, download, and automatically install mods, texture packs, behavior packs, and custom maps with one click.
           </p>
         </div>
         <ul class="card-bullets">
-          <li>Built-in "Find my Minecraft data" storage scanner.</li>
-          <li>Interactive conflict resolution dialog for world folders.</li>
-          <li>Zero risk of World Corruption across version hops.</li>
+          <li>1-click import: <code>.mcpack</code>, <code>.mcaddon</code>, <code>.mcworld</code>, &amp; <code>.zip</code>.</li>
+          <li>Airspace Off-Screen Parking saves RAM when switching tabs.</li>
+          <li>Built-in ad &amp; tracker blocking for clean web browsing.</li>
         </ul>
       </div>
 
-      <!-- CARD 5: Direct Microsoft CDN Downloader -->
+      <!-- CARD 5: Bedrock Servers & FPS Unlocker -->
       <div class="feature-card">
         <div>
           <div class="card-top-marker">
-            <span class="card-code-tag">VersionDownloader.cs</span>
+            <span class="card-category-badge">SERVERS &amp; PERFORMANCE</span>
             <span class="card-num">05</span>
           </div>
-          <h3 class="card-title">Direct <span>CDN Downloader</span></h3>
+          <h3 class="card-title">Live Servers &amp; <span>FPS Unlocker</span></h3>
           <p class="card-body">
-            High-speed direct downloading from Microsoft Windows Update CDN (<code>WUProtocol</code>) with fallback mirrors, plus full local offline package sideloading.
+            Browse popular Bedrock community servers and join directly with one click via <code>minecraft://</code> protocol activation. Customize performance with built-in framerate unlocking (144 FPS, 240 FPS, or uncapped).
           </p>
         </div>
         <ul class="card-bullets">
-          <li>Direct downloading for official Release &amp; Preview packages.</li>
-          <li>Local offline import for <code>.appx</code> and <code>.msixvc</code> files.</li>
-          <li>Real-time download speed &amp; staging progress bars.</li>
+          <li>Browse featured Bedrock multiplayer servers with live pings.</li>
+          <li>One-click join via native Windows protocol activation.</li>
+          <li>Unlock framerates beyond 60 FPS without manual file editing.</li>
         </ul>
       </div>
 
-      <!-- CARD 6: Maintenance & Clean-up Utility -->
+      <!-- CARD 6: System Diagnostics & Low-Performance Mode -->
       <div class="feature-card">
         <div>
           <div class="card-top-marker">
-            <span class="card-code-tag">DDFWManager.cs</span>
+            <span class="card-category-badge">SYSTEM DIAGNOSTICS</span>
             <span class="card-num">06</span>
           </div>
-          <h3 class="card-title">Store <span>Repair &amp; Clean</span></h3>
+          <h3 class="card-title">BUGrock_Check &amp; <span>Eco Mode</span></h3>
           <p class="card-body">
-            Built-in tools to resolve stubborn Store error codes (0x80073CF9), unregister stale AppX packages cleanly, and auto-delete installers to free up disk space.
+            Includes the bundled <code>BUGrock_Check</code> diagnostic tool to inspect and auto-repair critical Windows gaming services (AppXSvc, ClipSvc, GamingServices). Features Low-Performance Mode to disable animations on lower-end hardware.
           </p>
         </div>
         <ul class="card-bullets">
-          <li>"Cleanup for Microsoft Store" one-click fixer.</li>
-          <li>Auto-delete packages after extraction option.</li>
-          <li>Full Portable USB extraction mode supported.</li>
+          <li>One-click repair for disabled or missing Windows services.</li>
+          <li>Low-Performance Mode disables animations to conserve CPU.</li>
+          <li>Hardware-accelerated dark WPF interface with zero bloat.</li>
         </ul>
       </div>
 
     </div>
 
+    <!-- Discord Rich Presence Spotlight (v1.1.5) -->
+    <div id="discord" class="discord-spotlight">
+      <div>
+        <div class="discord-badge">DISCORD RICH PRESENCE v1.1.5</div>
+        <h3 style="font-family: 'MinecraftTen', sans-serif; font-size: 1.8rem; margin-bottom: 12px; color: #fff;">
+          SHOWCASE YOUR BEDROCK ADVENTURES
+        </h3>
+        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 16px;">
+          Seamless Discord Rich Presence integration that tracks active elapsed playtime, displays player gamertags and offline profiles, detects current singleplayer world names, and broadcasts server names and IP addresses cleanly in English.
+        </p>
+        <div style="font-family: 'Minecraft', monospace; font-size: 0.85rem; color: #5865F2;">
+          ✓ Live Playtime Counter • ✓ World Name Detection • ✓ Server IP Broadcast
+        </div>
+      </div>
+
+      <div class="rpc-preview-box">
+        <div class="rpc-avatar">
+          <img src="./assets/bugrock_block.png" alt="BUGrock Block" />
+        </div>
+        <div class="rpc-details">
+          <div class="rpc-title">Playing Minecraft Bedrock Edition</div>
+          <div class="rpc-sub">Playing on: The Hive (geo.hivebedrock.network)</div>
+          <div class="rpc-sub">Version: 1.21.40 • Gamertag: Stev0_Gamer</div>
+          <div class="rpc-sub" style="color: var(--purple-primary); margin-top: 4px;">Elapsed: 01:24:18</div>
+        </div>
+      </div>
+    </div>
+
   </section>
 
-  <!-- Interactive Manager Tabs Showcase -->
-  <section id="showcase" class="container">
+  <!-- Real Launcher Tabs Architecture Showcase -->
+  <section id="showcase" class="container" style="margin-top: 60px;">
     <div class="tabs-showcase-box">
       
       <div class="showcase-header">
         <div>
-          <div class="section-eyebrow">// CODE-DRIVEN INTERACTION</div>
-          <h3 style="font-family: 'MinecraftTen', sans-serif; font-size: 1.8rem;">IN-LAUNCHER TABS ARCHITECTURE</h3>
+          <div class="section-eyebrow">// REAL IN-APP NAVIGATION</div>
+          <h3 style="font-family: 'MinecraftTen', sans-serif; font-size: 1.8rem;">ACTUAL LAUNCHER TABS WORKFLOW</h3>
         </div>
 
         <div class="showcase-tabs-nav">
-          <button class="showcase-tab-btn active" data-tab="tab-installations">INSTALLATIONS</button>
-          <button class="showcase-tab-btn" data-tab="tab-addons">ADDONS &amp; MODS</button>
-          <button class="showcase-tab-btn" data-tab="tab-worlds">WORLDS &amp; SAVES</button>
-          <button class="showcase-tab-btn" data-tab="tab-skins">3D SKINS</button>
+          <button class="showcase-tab-btn active" data-tab="tab-play">PLAY</button>
+          <button class="showcase-tab-btn" data-tab="tab-installations">INSTALLATIONS</button>
+          <button class="showcase-tab-btn" data-tab="tab-addons">EDIT ADDONS</button>
+          <button class="showcase-tab-btn" data-tab="tab-settings">SETTINGS &amp; TOOLS</button>
         </div>
       </div>
 
-      <div id="tab-installations" class="tab-content-panel active">
-        <span style="color: var(--purple-primary);">[INSTALLATIONS ENGINE]</span><br />
-        ├── ReleaseTab: Stable Bedrock channel (1.21.40, 1.20.80, 1.16.201, ...)<br />
-        ├── PreviewTab: Testing latest Bedrock features (26.70.22, 1.21.50.20)<br />
-        ├── BetaTab: Historical Xbox Insider beta builds (1.14, 1.12, 1.10)<br />
-        └── ImportedTab: Locally imported custom .msixvc or .appx developer builds<br />
-        <span style="color: var(--accent-lime);">STATUS: Automatic GDK Decryption &amp; UWP Staging Ready</span>
+      <!-- TAB 1: Play -->
+      <div id="tab-play" class="tab-content-panel active">
+        <span style="color: var(--purple-primary);">[PLAY TAB]</span> — The central command dashboard<br />
+        ├── Quick Play Version Selector: Pick active installed release, beta, or preview<br />
+        ├── Interactive 3D Skin Viewer Sidebar: Live Steve &amp; custom skin preview with offline profile support<br />
+        ├── Launch Controller: One-click launch with background GDK decryption key resolution<br />
+        └── Live Status Bar: Reports active package staging and launch state
       </div>
 
+      <!-- TAB 2: Installations -->
+      <div id="tab-installations" class="tab-content-panel">
+        <span style="color: var(--purple-primary);">[INSTALLATIONS TAB]</span> — Multi-version management<br />
+        ├── Official Channels: Release, Preview, and Beta versions downloaded directly from Microsoft Update CDN<br />
+        ├── Imported Builds: Sideload local custom .msixvc and .appx builds via file picker or drag-and-drop<br />
+        ├── Multi-Instance Isolation: Create cloned instances with isolated com.mojang directories<br />
+        └── Staging Manager: Upgrade, downgrade, or unregister version packages safely
+      </div>
+
+      <!-- TAB 3: Edit Addons -->
       <div id="tab-addons" class="tab-content-panel">
-        <span style="color: var(--purple-primary);">[DDFW / ADDON MANAGER SERVICE]</span><br />
-        ├── 🎨 Resource Packs: High-res PBR textures, Faithful 32x, UI packs<br />
-        ├── ⚙️ Behavior Packs: Custom entity scripts, gamemodes, item behaviors<br />
-        ├── ⚡ Shaders: RenderDragon Deferred Lighting, sun rays, reflective water<br />
-        └── Deep Inspection: Auto-detects Pack UUID, Version requirement, &amp; icon
+        <span style="color: var(--purple-primary);">[EDIT ADDONS TAB]</span> — Built-in modding hub<br />
+        ├── Integrated Browsers: Browse MCPEDL and CurseForge directly with built-in ad-blocking<br />
+        ├── 1-Click Sideloading: Automatic import of .mcpack, .mcaddon, .mcworld, .mctemplate, and .zip<br />
+        ├── Airspace Off-Screen Parking: WebView2 background rendering suspends to save RAM<br />
+        └── Live Addon Directory: Manage installed resource packs and behavior scripts per instance
       </div>
 
-      <div id="tab-worlds" class="tab-content-panel">
-        <span style="color: var(--purple-primary);">[WORLD PRESERVATION ENGINE]</span><br />
-        ├── SafeHolding: Backs up %localappdata%/Packages/.../LocalState before switches<br />
-        ├── MultiPath Scanner: Identifies saves in UWP and GDK (Minecraft Bedrock/Users)<br />
-        └── Conflict Resolver: Prevents overwriting or corrupting save data across versions
-      </div>
-
-      <div id="tab-skins" class="tab-content-panel">
-        <span style="color: var(--purple-primary);">[3D SKIN &amp; STEVE HEAD HELPER]</span><br />
-        ├── SteveHeadHelper: Real-time rendering of player skins in the launcher UI<br />
-        ├── Skin Packs: Import custom .mcpack skin bundles without Store marketplace locks<br />
-        └── Offline Profile: Display offline skins without Xbox Live connectivity requirements
+      <!-- TAB 4: Settings & Tools -->
+      <div id="tab-settings" class="tab-content-panel">
+        <span style="color: var(--purple-primary);">[SETTINGS &amp; TOOLS TAB]</span> — Safety, diagnostics &amp; tweaks<br />
+        ├── Pre-Launch World Auto-Backup: Timestamped ZIP archives organized by version name &amp; number<br />
+        ├── "Find My Worlds" Shortcut: Instantly open the active Minecraft saves folder in Windows Explorer<br />
+        ├── BUGrock_Check Utility: One-click health check and repair for Windows gaming deployment services<br />
+        └── Low-Performance Mode: Master animation toggle to maximize performance on lower-end PCs
       </div>
 
     </div>
@@ -773,27 +884,27 @@
   <!-- Requirements Box -->
   <section id="requirements" class="container">
     <div class="reqs-box">
-      <div class="section-eyebrow">// PREREQUISITES CHECKLIST</div>
-      <h3 style="font-family: 'MinecraftTen', sans-serif; font-size: 1.8rem; margin-bottom: 8px;">QUICK SYSTEM REQUIREMENTS</h3>
-      <p style="color: var(--text-muted); font-size: 0.95rem;">Ensure your Windows 10/11 system meets these basic runtimes before launching:</p>
+      <div class="section-eyebrow">// PREREQUISITES &amp; COMPATIBILITY</div>
+      <h3 style="font-family: 'MinecraftTen', sans-serif; font-size: 1.8rem; margin-bottom: 8px;">HONEST SYSTEM REQUIREMENTS</h3>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">Clear requirements so you know exactly what is needed for your machine:</p>
 
       <div class="reqs-grid">
         <div class="req-item">
-          <div class="req-item-label">RUNTIME #01</div>
-          <div class="req-item-val">.NET 8.0 Desktop</div>
-          <div class="req-item-desc">Required to run the modern C# WPF launcher interface.</div>
+          <div class="req-item-label">OPERATING SYSTEM</div>
+          <div class="req-item-val">Windows 10 / 11 (64-bit)</div>
+          <div class="req-item-desc">Windows 10 Build 17763+ or Windows 11. Modern builds allow package sideloading out of the box.</div>
         </div>
 
         <div class="req-item">
-          <div class="req-item-label">RUNTIME #02</div>
-          <div class="req-item-val">Visual C++ 2015-2022</div>
-          <div class="req-item-desc">Required for native C++ shims and decryption helpers.</div>
+          <div class="req-item-label">FULL STANDALONE EDITION</div>
+          <div class="req-item-val">Zero Prerequisites</div>
+          <div class="req-item-desc">Includes bundled .NET 8 Runtime and VC++ 2015-2022 runtimes. Runs immediately on any clean PC.</div>
         </div>
 
         <div class="req-item">
-          <div class="req-item-label">SYSTEM SETTING</div>
-          <div class="req-item-val">Developer Mode: ON</div>
-          <div class="req-item-desc">Allows Windows to register and sideload local packages.</div>
+          <div class="req-item-label">LITE EDITION ONLY</div>
+          <div class="req-item-val">.NET 8.0 Desktop Runtime</div>
+          <div class="req-item-desc">For users who already have .NET 8 installed and want a tiny 10 MB download size.</div>
         </div>
       </div>
     </div>
@@ -805,19 +916,20 @@
       <ul class="footer-nav">
         <li><a href="#features">Features</a></li>
         <li><a href="#showcase">Launcher Tabs</a></li>
+        <li><a href="#discord">Discord RPC</a></li>
         <li><a href="#requirements">Requirements</a></li>
-        <li><a href="https://github.com/BUGrockLauncher/bugrock-official" target="_blank">Repository</a></li>
-        <li><a href="https://github.com/7AmoZ/BUGrock-Launcher" target="_blank">Upstream Project</a></li>
+        <li><a href="https://github.com/BUGrockLauncher/BUGrockLauncher" target="_blank">GitHub Repository</a></li>
+        <li><a href="https://github.com/BUGrockLauncher/BUGrockLauncher/releases" target="_blank">Releases Page</a></li>
       </ul>
 
       <p class="footer-disclaimer">
         BUGrock Launcher is a free and open-source project licensed under the GNU General Public License v3.0 (GPL-3.0).<br />
         <strong>NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.</strong><br />
-        Minecraft is a trademark of Mojang Synergies AB / Microsoft Corporation.
+        Minecraft is a registered trademark of Mojang Synergies AB / Microsoft Corporation.
       </p>
 
       <p style="color: var(--text-dim); font-size: 0.85rem;">
-        &copy; 2026 BUGrock Launcher Project. Handcrafted for the Windows Bedrock community.
+        &copy; 2026 BUGrock Launcher Project. Handcrafted with care for the Windows Bedrock community.
       </p>
     </div>
   </footer>
